@@ -1,828 +1,1100 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>SIR · Société Ivoirienne de Raffinage · Portail candidats</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&family=Montserrat:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>SIR · Portail Candidats · Côte d'Ivoire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --vert:        #1B6B35;
+      --vert-fonce:  #144F28;
+      --vert-profond:#0D3519;
+      --vert-clair:  #E8F5ED;
+      --vert-moyen:  #C2DDC9;
+      --blanc:       #FFFFFF;
+      --noir:        #111111;
+      --gris-fonce:  #1E1E1E;
+      --gris-moyen:  #555555;
+      --gris-clair:  #F4F4F4;
+      --bordure:     #CCCCCC;
+      --surface:     #F7FAF8;
+      --rouge-err:   #C0392B;
+      --r:           20px;
+      --r-lg:        28px;
+      --t:           .2s ease;
+    }
 
-        body {
-            font-family: "Inter", system-ui, -apple-system, sans-serif;
-            background: #f0f4f8;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            color: #1a2a3a;
-            line-height: 1.5;
-        }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-        /* ===== HEADER - Couleurs du logo SIR ===== */
-        .header {
-            background: #1a7a9a;
-            color: white;
-            padding: 0.6rem 1rem;
-            border-bottom: 6px solid #d44a2a;
-            box-shadow: 0 4px 20px rgba(26, 122, 154, 0.3);
-            position: relative;
-        }
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: #d44a2a;
-            border-radius: 0 0 4px 4px;
-        }
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem 1rem;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .logo-icon {
-            font-size: 2.4rem;
-            color: white;
-            background: rgba(255,255,255,0.15);
-            padding: 0.3rem 0.6rem;
-            border-radius: 8px;
-            font-weight: 900;
-            font-family: "Montserrat", sans-serif;
-            letter-spacing: 2px;
-        }
-        .logo-text h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            font-family: "Montserrat", sans-serif;
-            color: #ffffff;
-            line-height: 1;
-        }
-        .logo-text h1 span {
-            color: #ffcc00;
-        }
-        .logo-text p {
-            font-size: 0.55rem;
-            opacity: 0.9;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            margin-top: 2px;
-            color: #e0f0f8;
-            font-weight: 500;
-        }
-        .badge-stagiaire {
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            white-space: nowrap;
-            color: #ffffff;
-        }
-        .badge-stagiaire i { margin-right: 0.4rem; color: #ffcc00; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--surface);
+      color: var(--noir);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
 
-        /* ===== FOOTER ===== */
-        .footer {
-            background: #1a7a9a;
-            color: #d0e8f0;
-            padding: 1.2rem 1.5rem;
-            margin-top: 3rem;
-            font-size: 0.75rem;
-            border-top: 6px solid #d44a2a;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.7rem;
-        }
-        .footer a { color: #ffcc00; text-decoration: none; font-weight: 500; }
-        .footer a:hover { text-decoration: underline; }
+    /* ======= HEADER ======= */
+    .header {
+      background: var(--vert-profond);
+      border-bottom: 5px solid var(--noir);
+      box-shadow: 0 4px 20px rgba(0,0,0,.35);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
 
-        /* ===== MAIN ===== */
-        .main-container {
-            flex: 1;
-            max-width: 900px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
-            width: 100%;
-        }
+    /* Logo */
+    .logo-zone {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-badge {
+      background: var(--blanc);
+      color: var(--vert-profond);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      letter-spacing: 5px;
+      padding: 0.2rem 1rem;
+      border-radius: 6px;
+      line-height: 1.2;
+      border: 3px solid var(--vert);
+    }
+    .logo-texte h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--blanc);
+      line-height: 1.1;
+    }
+    .logo-texte h1 span { color: #6FD98A; }
+    .logo-texte p {
+      font-size: 0.52rem;
+      color: #9ACCA8;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
 
-        .card {
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px -12px rgba(26, 122, 154, 0.25);
-            overflow: hidden;
-            border: 1px solid rgba(26, 122, 154, 0.08);
-        }
+    .badge-recrutement {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--blanc);
+      padding: 0.45rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: .4px;
+      white-space: nowrap;
+    }
+    .badge-recrutement i { color: #6FD98A; margin-right: 6px; }
 
-        /* ===== CONGRATS ===== */
-        .congrats-header {
-            background: linear-gradient(135deg, #f0f8fc 0%, #e0eef5 100%);
-            padding: 2rem 2rem;
-            border-bottom: 4px solid #d44a2a;
-            position: relative;
-        }
-        .congrats-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1a5a6a;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            font-family: "Montserrat", sans-serif;
-        }
-        .congrats-title i {
-            color: #d44a2a;
-            font-size: 2rem;
-        }
-        .congrats-sub {
-            font-size: 1rem;
-            color: #3a5a6a;
-            margin: 0.6rem 0 1.2rem;
-        }
-        .congrats-sub strong {
-            color: #1a7a9a;
-        }
+    /* ======= FOOTER ======= */
+    .footer {
+      background: var(--gris-fonce);
+      border-top: 4px solid var(--vert);
+      color: #999;
+      font-size: 0.75rem;
+      padding: 1.3rem 1.5rem;
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .footer-logo {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--blanc);
+      letter-spacing: 4px;
+    }
+    .footer a { color: #6FD98A; text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
 
-        .btn-form-access {
-            background: #1a7a9a;
-            border: none;
-            color: white;
-            padding: 0.9rem 2.2rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px -8px rgba(26, 122, 154, 0.5);
-            transition: 0.2s;
-        }
-        .btn-form-access:hover {
-            background: #1580a0;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px -8px rgba(26, 122, 154, 0.6);
-        }
-        .btn-form-access i {
-            color: #ffcc00;
-        }
+    /* ======= MAIN ======= */
+    .main-container {
+      flex: 1;
+      max-width: 860px;
+      width: 100%;
+      margin: 2rem auto 3rem;
+      padding: 0 1rem;
+    }
 
-        /* ===== FORM ===== */
-        .form-section { padding: 1.8rem 1.8rem; }
-        .hidden { display: none !important; }
+    .card {
+      background: var(--blanc);
+      border-radius: var(--r-lg);
+      box-shadow: 0 16px 48px rgba(0,0,0,.12);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
 
-        .step-indicator {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #dce8ee;
-            padding-bottom: 1rem;
-        }
-        .step {
-            font-weight: 500;
-            color: #8aa0b0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-        }
-        .step.active {
-            color: #1a7a9a;
-            font-weight: 700;
-        }
-        .step.active i {
-            color: #d44a2a;
-        }
-        .step i { font-size: 1.1rem; }
+    /* ======= BLOC FELICITATIONS ======= */
+    .congrats-header {
+      background: linear-gradient(135deg, #E8F5ED 0%, #D0EADA 100%);
+      padding: 2.5rem 2.2rem 2.2rem;
+      border-bottom: 4px solid var(--noir);
+      position: relative;
+      overflow: hidden;
+    }
+    .congrats-header::after {
+      content: 'SIR';
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 9rem;
+      color: rgba(27,107,53,.07);
+      letter-spacing: 10px;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .congrats-title {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--vert-profond);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .congrats-title i { color: var(--vert); font-size: 2rem; }
+    .congrats-sub {
+      color: var(--gris-moyen);
+      font-size: 1rem;
+      margin: 0.8rem 0 1.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    .congrats-sub strong { color: var(--vert-fonce); }
 
-        .form-page { animation: fade 0.25s ease; }
-        @keyframes fade {
-            from { opacity: 0.3; transform: translateX(8px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+    .btn-acces {
+      background: var(--vert-profond);
+      color: var(--blanc);
+      border: none;
+      padding: 0.95rem 2.4rem;
+      border-radius: 50px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      transition: var(--t);
+      position: relative;
+      z-index: 1;
+      border: 2px solid var(--noir);
+    }
+    .btn-acces:hover {
+      background: var(--vert-fonce);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.3);
+    }
 
-        .form-row { margin-bottom: 1.3rem; }
-        label {
-            font-weight: 600;
-            color: #1a5a6a;
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.92rem;
-        }
-        .required:after {
-            content: " *";
-            color: #d44a2a;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 0.85rem 1.1rem;
-            border: 2px solid #d0dce6;
-            border-radius: 16px;
-            font-size: 1rem;
-            background: white;
-            transition: 0.2s;
-            font-family: "Inter", sans-serif;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #1a7a9a;
-            box-shadow: 0 0 0 4px rgba(26, 122, 154, 0.1);
-            outline: none;
-        }
-        textarea { resize: vertical; min-height: 60px; }
+    /* ======= FORMULAIRE ======= */
+    .form-section { padding: 2rem; }
+    .hidden { display: none !important; }
 
-        .flex-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            align-items: center;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #f5f8fc;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #d0dce6;
-            cursor: pointer;
-            transition: 0.15s;
-            font-size: 0.95rem;
-        }
-        .radio-option:hover {
-            border-color: #d44a2a;
-            background: #fcf4f0;
-        }
-        .radio-option input[type="radio"] {
-            width: auto;
-            padding: 0;
-            margin: 0;
-            accent-color: #d44a2a;
-        }
+    /* Steps */
+    .step-indicator {
+      display: flex;
+      background: var(--gris-clair);
+      border: 2px solid var(--bordure);
+      border-radius: 50px;
+      padding: 4px;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #888;
+      padding: 0.5rem 0.8rem;
+      border-radius: 50px;
+      transition: var(--t);
+      white-space: nowrap;
+    }
+    .step.active {
+      background: var(--vert-profond);
+      color: var(--blanc);
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(0,0,0,.2);
+    }
+    .step i { font-size: 0.9rem; }
 
-        /* ===== PAIEMENT ===== */
-        .paiement-cadre {
-            background: #fcf9f5;
-            border: 2px solid #d44a2a;
-            border-radius: 24px;
-            padding: 1.5rem 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .paiement-cadre h4 {
-            color: #8a3a1a;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-size: 1.05rem;
-        }
-        .paiement-cadre h4 i {
-            color: #d44a2a;
-        }
-        .paiement-cadre p {
-            color: #3d3a2e;
-            font-size: 0.95rem;
-        }
+    .form-page { animation: fadein .25s ease; }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateX(8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
 
-        .file-upload-box {
-            background: white;
-            border: 2px dashed #d44a2a;
-            border-radius: 20px;
-            padding: 1.2rem;
-            text-align: center;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-        .file-upload-box:hover {
-            background: #fcf4f0;
-            border-color: #b83a1a;
-        }
-        .file-upload-box i {
-            font-size: 2.2rem;
-            color: #d44a2a;
-        }
-        .file-name {
-            font-size: 0.9rem;
-            background: #eef2f8;
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 0.5rem;
-            color: #3d3a2e;
-        }
+    .form-row { margin-bottom: 1.3rem; }
 
-        .info-securite-sociale {
-            background: #eef2f8;
-            border-radius: 20px;
-            padding: 1.2rem 1.5rem;
-            font-size: 0.95rem;
-            border-left: 5px solid #d44a2a;
-            margin-top: 1rem;
-        }
-        .info-securite-sociale i {
-            color: #d44a2a;
-        }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--vert-profond);
+      margin-bottom: 6px;
+    }
+    .required::after { content: " *"; color: var(--rouge-err); }
 
-        .info-box {
-            background: #f5f8fc;
-            padding: 1rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            border-left: 4px solid #d44a2a;
-        }
-        .info-box i {
-            color: #d44a2a;
-        }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border: 2px solid var(--bordure);
+      border-radius: var(--r);
+      font-size: 0.95rem;
+      font-family: "Inter", sans-serif;
+      color: var(--noir);
+      background: #FAFAFA;
+      transition: var(--t);
+    }
+    input::placeholder, textarea::placeholder { color: #AAAAAA; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--vert);
+      box-shadow: 0 0 0 4px rgba(27,107,53,.1);
+      outline: none;
+      background: var(--blanc);
+    }
+    textarea { resize: vertical; min-height: 60px; }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%231B6B35' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
 
-        /* ===== BUTTONS ===== */
-        .btn-nav, .btn-primary {
-            border: none;
-            font-weight: 600;
-            padding: 0.7rem 1.6rem;
-            border-radius: 50px;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.15s;
-            white-space: nowrap;
-            font-family: "Inter", sans-serif;
-        }
-        .btn-nav {
-            background: white;
-            border: 2px solid #1a7a9a;
-            color: #1a7a9a;
-        }
-        .btn-nav:hover:not(:disabled) {
-            background: #eef6fa;
-        }
-        .btn-nav:disabled {
-            opacity: 0.35;
-            border-color: #b0c8d4;
-            pointer-events: none;
-        }
-        .btn-primary {
-            background: #1a7a9a;
-            color: white;
-            border: 2px solid #1a7a9a;
-        }
-        .btn-primary:hover:not(:disabled) {
-            background: #1580a0;
-        }
-        .btn-primary:disabled {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .btn-primary i {
-            color: #ffcc00;
-        }
+    .flex-group { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid var(--bordure);
+      border-radius: 40px;
+      background: var(--gris-clair);
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: var(--t);
+    }
+    .radio-option:hover {
+      border-color: var(--vert);
+      background: var(--vert-clair);
+      color: var(--vert-fonce);
+    }
+    .radio-option input[type="radio"] { width: auto; padding: 0; accent-color: var(--vert); }
 
-        .navigation-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            border-top: 2px solid #dce8ee;
-            padding-top: 1.5rem;
-        }
+    /* Paiement */
+    .paiement-cadre {
+      background: var(--vert-clair);
+      border: 2px solid var(--vert-moyen);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1.2rem 0;
+    }
+    .paiement-cadre h4 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--vert-profond);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.8rem;
+    }
+    .paiement-cadre h4 i { color: var(--vert); }
+    .paiement-cadre p { color: var(--gris-moyen); font-size: 0.93rem; }
 
-        /* ===== ERRORS ===== */
-        .error-message {
-            color: #c0392b;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #fdeaea;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-        }
-        .error-message i { color: #c0392b; }
-        .input-error {
-            border-color: #c0392b !important;
-            background-color: #fef8f8;
-        }
+    .numero-wave-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blanc);
+      border: 2px solid var(--vert);
+      border-radius: 12px;
+      padding: 0.55rem 1rem;
+      margin: 0.6rem 0;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .numero-wave {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--vert-profond);
+      letter-spacing: 2px;
+      flex: 1;
+    }
+    .btn-copier-wave {
+      background: var(--vert-profond);
+      color: var(--blanc);
+      border: none;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--t);
+      white-space: nowrap;
+    }
+    .btn-copier-wave:hover { background: var(--vert-fonce); transform: scale(1.03); }
+    .btn-copier-wave.copie { background: #145F28; }
 
-        /* ===== LOADER ===== */
-        #loaderOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(26, 122, 154, 0.96);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            gap: 1.5rem;
-        }
-        .loader-spinner {
-            width: 68px;
-            height: 68px;
-            border: 6px solid rgba(255,255,255,0.15);
-            border-top-color: #ffcc00;
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loader-icon {
-            font-size: 3.5rem;
-            color: #ffcc00;
-            animation: float 1.2s ease-in-out infinite alternate;
-            font-weight: 900;
-            font-family: "Montserrat", sans-serif;
-            letter-spacing: 4px;
-        }
-        @keyframes float { from { transform: translateY(-8px); } to { transform: translateY(8px); } }
-        .loader-text { color: white; font-size: 1.15rem; font-weight: 600; text-align: center; }
-        .loader-sub { color: rgba(255,255,255,0.7); font-size: 0.88rem; text-align: center; }
+    .file-upload-box {
+      background: var(--blanc);
+      border: 2px dashed var(--vert);
+      border-radius: 16px;
+      padding: 1.3rem;
+      text-align: center;
+      margin: 0.8rem 0;
+      cursor: pointer;
+      transition: var(--t);
+    }
+    .file-upload-box:hover {
+      background: var(--vert-clair);
+      border-color: var(--vert-fonce);
+    }
+    .file-upload-box i { font-size: 2.2rem; color: var(--vert); }
+    .file-name {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--vert-clair);
+      color: var(--vert-profond);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+    }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 600px) {
-            .navigation-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn-nav, .btn-primary {
-                justify-content: center;
-                width: 100%;
-            }
-            .step-indicator { font-size: 0.7rem; gap: 0.3rem 0.8rem; }
-            .congrats-title { font-size: 1.4rem; }
-            .form-section { padding: 1.2rem; }
-            .header-container { gap: 0.4rem; }
-            .logo-text h1 { font-size: 1.4rem; }
-            .logo-text p { font-size: 0.5rem; }
-        }
-    </style>
+    .info-securite-sociale {
+      background: var(--blanc);
+      border-left: 4px solid var(--vert);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.91rem;
+      margin-top: 0.8rem;
+      color: var(--gris-moyen);
+    }
+    .info-securite-sociale i { color: var(--vert); }
+
+    .info-box {
+      background: var(--vert-clair);
+      border-left: 4px solid var(--vert-profond);
+      border-radius: 14px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.91rem;
+      color: var(--gris-moyen);
+    }
+    .info-box i { color: var(--vert); }
+
+    /* Boutons nav */
+    .btn-nav, .btn-primary {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 0.97rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--t);
+      white-space: nowrap;
+      border: 2px solid transparent;
+    }
+    .btn-nav {
+      background: var(--blanc);
+      border-color: var(--vert);
+      color: var(--vert-profond);
+    }
+    .btn-nav:hover:not(:disabled) { background: var(--vert-clair); transform: translateY(-1px); }
+    .btn-nav:disabled { opacity: .3; pointer-events: none; }
+    .btn-primary {
+      background: var(--vert-profond);
+      color: var(--blanc);
+      border-color: var(--noir);
+      box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--vert-fonce);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.22);
+    }
+    .btn-primary:disabled { opacity: .55; pointer-events: none; }
+
+    .navigation-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--bordure);
+    }
+
+    /* Erreurs */
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FDEAEA;
+      color: var(--rouge-err);
+      font-size: 0.84rem;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      margin-top: 5px;
+      border: 1px solid rgba(192,57,43,.15);
+    }
+    .input-error { border-color: var(--rouge-err) !important; background: #FFF8F8 !important; }
+
+    /* Loader */
+    #loaderOverlay {
+      position: fixed;
+      inset: 0;
+      background: var(--vert-profond);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      gap: 1.4rem;
+    }
+    .loader-spinner {
+      width: 66px; height: 66px;
+      border: 6px solid rgba(255,255,255,.15);
+      border-top-color: var(--blanc);
+      border-radius: 50%;
+      animation: spin .85s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader-icon {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: 8px;
+      color: var(--blanc);
+      animation: flottement 1.1s ease-in-out infinite alternate;
+    }
+    @keyframes flottement { from { transform: translateY(-7px); } to { transform: translateY(7px); } }
+    .loader-text { color: var(--blanc); font-size: 1.1rem; font-weight: 600; text-align: center; }
+    .loader-sub  { color: rgba(255,255,255,.6); font-size: 0.85rem; text-align: center; }
+
+    /* Confirmation */
+    #confirmationPage {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 10000;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    #confirmationPage.active { display: flex; }
+    .confirmation-card {
+      background: var(--blanc);
+      border-radius: 32px;
+      box-shadow: 0 28px 56px rgba(0,0,0,.3);
+      overflow: hidden;
+      max-width: 640px;
+      width: 100%;
+      margin: auto;
+      animation: popIn .4s cubic-bezier(.2,0,.1,1);
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(28px) scale(.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .confirmation-header {
+      background: var(--vert-profond);
+      border-bottom: 4px solid var(--noir);
+      padding: 2.2rem 2rem;
+      text-align: center;
+      color: var(--blanc);
+      position: relative;
+      overflow: hidden;
+    }
+    .confirmation-header::before {
+      content: 'SIR';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 10rem;
+      color: rgba(255,255,255,.04);
+      letter-spacing: 12px;
+      pointer-events: none;
+    }
+    .confirmation-icon {
+      font-size: 5rem;
+      color: #6FD98A;
+      margin-bottom: 0.8rem;
+      animation: pulsate .55s ease-in-out;
+      position: relative; z-index: 1;
+    }
+    @keyframes pulsate {
+      0%  { transform: scale(.6); opacity: 0; }
+      60% { transform: scale(1.15); }
+      100%{ transform: scale(1); opacity: 1; }
+    }
+    .confirmation-header h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      margin-bottom: 0.4rem;
+      position: relative; z-index: 1;
+    }
+    .confirmation-header p { opacity: .9; position: relative; z-index: 1; }
+
+    .confirmation-body { padding: 1.8rem; }
+    .info-box-confirm {
+      background: var(--vert-clair);
+      border-left: 5px solid var(--vert);
+      border-radius: 18px;
+      padding: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .info-box-confirm h3 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--vert-profond);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.9rem;
+    }
+    .info-box-confirm ul { list-style: none; }
+    .info-box-confirm li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--vert-moyen);
+      font-size: 0.91rem;
+      color: var(--gris-moyen);
+    }
+    .info-box-confirm li:last-child { border-bottom: none; }
+    .info-box-confirm li i { color: var(--vert); width: 22px; }
+
+    .warning-box {
+      background: var(--gris-clair);
+      border: 1.5px solid var(--bordure);
+      border-radius: 16px;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .warning-box i { color: var(--vert); font-size: 1.7rem; flex-shrink: 0; }
+    .warning-box p { color: var(--gris-moyen); font-size: 0.88rem; }
+    .warning-box strong { color: var(--vert-profond); }
+
+    .btn-close-confirm {
+      background: var(--vert-profond);
+      color: var(--blanc);
+      border: 2px solid var(--noir);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 0.97rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: var(--t);
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    }
+    .btn-close-confirm:hover { background: var(--vert-fonce); transform: translateY(-2px); }
+
+    .btn-retour-accueil {
+      background: var(--gris-clair);
+      color: var(--gris-fonce);
+      border: 2px solid var(--bordure);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 0.97rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: var(--t);
+      margin-top: 0.7rem;
+    }
+    .btn-retour-accueil:hover { background: #E0E0E0; transform: translateY(-2px); }
+    .btn-retour-accueil i { color: var(--vert); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .navigation-buttons { flex-direction: column; align-items: stretch; }
+      .btn-nav, .btn-primary { width: 100%; justify-content: center; }
+      .step { font-size: 0.68rem; padding: 0.4rem 0.5rem; }
+      .step-indicator { border-radius: 14px; }
+      .congrats-title { font-size: 1.35rem; }
+      .form-section { padding: 1.2rem; }
+      .confirmation-body { padding: 1.2rem; }
+      .warning-box { flex-direction: column; text-align: center; }
+      .numero-wave-container { flex-direction: column; align-items: stretch; }
+      .btn-copier-wave { justify-content: center; }
+    }
+
+    img{
+      width: 50px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ===== HEADER - Couleurs exactes du logo SIR ===== -->
-    <header class="header">
-        <div class="header-container">
-            <div class="logo-area">
-                <span class="logo-icon">SIR</span>
-                <div class="logo-text">
-                    <h1>S<span>IR</span></h1>
-                    <p>Société Ivoirienne de Raffinage</p>
-                </div>
-            </div>
-            <span class="badge-stagiaire"><i class="fas fa-user-check"></i> Recrutement · Stagiaires & CDI</span>
-        </div>
-    </header>
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-zone">
+      <div class="logo-badge"><img src="im/im.webp" alt=""></div>
+      <div class="logo-texte">
+        <h1>Société Ivoirienne <span>de Raffinage</span></h1>
+        <p>Raffinage · Énergie · Côte d'Ivoire · Depuis 1962</p>
+      </div>
+    </div>
+    <span class="badge-recrutement"><i class="fas fa-user-check"></i> Recrutement · Stagiaires &amp; CDI</span>
+  </div>
+</header>
 
-    <!-- ===== LOADER ===== -->
-    <div id="loaderOverlay" class="hidden">
-        <div class="loader-icon">SIR</div>
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Enregistrement en cours…</div>
-        <div class="loader-sub">Veuillez patienter, votre dossier est en cours de traitement</div>
+<!-- ===== LOADER ===== -->
+<div id="loaderOverlay" class="hidden">
+  <div class="loader-icon">SIR</div>
+  <div class="loader-spinner"></div>
+  <div class="loader-text">Enregistrement en cours…</div>
+  <div class="loader-sub">Veuillez patienter, votre dossier est en cours de traitement</div>
+</div>
+
+<!-- ===== CONFIRMATION ===== -->
+<div id="confirmationPage">
+  <div class="confirmation-card">
+    <div class="confirmation-header">
+      <div class="confirmation-icon"><i class="fas fa-check-circle"></i></div>
+      <h2>Inscription enregistrée !</h2>
+      <p id="confirmMessage">Votre dossier a bien été transmis à la Direction des RH de la SIR</p>
+    </div>
+    <div class="confirmation-body">
+      <div class="info-box-confirm">
+        <h3><i class="fas fa-envelope"></i> Prochaines étapes</h3>
+        <ul>
+          <li><i class="fas fa-check"></i> Votre dossier est en cours de vérification par nos services</li>
+          <li><i class="fas fa-clock"></i> Sous 24h, vous recevrez un email de confirmation</li>
+          <li><i class="fas fa-file-alt"></i> Les documents seront examinés par la Direction des RH de SIR</li>
+          <li><i class="fas fa-calendar-check"></i> Vous serez convoqué pour un entretien si votre dossier est complet</li>
+        </ul>
+      </div>
+      <div class="warning-box">
+        <i class="fas fa-info-circle"></i>
+        <p><strong>Information importante :</strong> Si vous n'avez pas reçu d'email dans les 48h, veuillez vérifier vos spams ou contacter la Direction des RH de SIR par WhatsApp au <strong>+225 05 08 88 73 56</strong>.</p>
+      </div>
+      <button class="btn-close-confirm" onclick="closeConfirmation()">
+        <i class="fas fa-arrow-left"></i> Retour au formulaire
+      </button>
+      <button class="btn-retour-accueil" onclick="retourAccueil()">
+        <i class="fas fa-home"></i> Retour à l'accueil
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main class="main-container">
+  <div class="card" id="mainCard">
+
+    <!-- Félicitations -->
+    <div id="congratsBlock" class="congrats-header">
+      <div class="congrats-title">
+        <i class="fas fa-check-circle"></i> Félicitations, vous êtes sélectionné !
+      </div>
+      <div class="congrats-sub">
+        Votre candidature a été retenue par <strong>la Société Ivoirienne de Raffinage (SIR)</strong>.<br>
+        Pour finaliser votre pré‑enregistrement, veuillez compléter le dossier en ligne.
+      </div>
+      <button id="showFormBtn" class="btn-acces">
+        <i class="fas fa-file-signature"></i> Accéder au formulaire
+      </button>
     </div>
 
-    <!-- ===== MAIN ===== -->
-    <main class="main-container">
-        <div class="card" id="mainCard">
+    <!-- Formulaire -->
+    <div id="formContainer" class="form-section hidden">
 
-            <!-- CONGRATS -->
-            <div id="congratsBlock" class="congrats-header">
-                <div class="congrats-title">
-                    <i class="fas fa-check-circle"></i> Félicitations, vous êtes sélectionné !
-                </div>
-                <div class="congrats-sub">
-                    Votre candidature a été retenue par <strong>SIR Côte d'Ivoire</strong>.<br>
-                    Pour finaliser votre pré‑enregistrement, veuillez compléter le dossier en ligne.
-                </div>
-                <button id="showFormBtn" class="btn-form-access">
-                    <i class="fas fa-file-signature"></i> Accéder au formulaire
-                </button>
-            </div>
+      <!-- Étapes -->
+      <div class="step-indicator">
+        <span class="step active" id="step1"><i class="fas fa-id-card"></i> 1. Identité</span>
+        <span class="step" id="step2"><i class="fas fa-calendar-alt"></i> 2. Disponibilité</span>
+        <span class="step" id="step3"><i class="fas fa-shield-alt"></i> 3. CNPS</span>
+        <span class="step" id="step4"><i class="fas fa-gavel"></i> 4. Engagement</span>
+      </div>
 
-            <!-- FORM -->
-            <div id="formContainer" class="form-section hidden">
-
-                <!-- Steps -->
-                <div class="step-indicator">
-                    <span class="step active" id="step1"><i class="fas fa-id-card"></i> 1. Identité</span>
-                    <span class="step" id="step2"><i class="fas fa-calendar-alt"></i> 2. Disponibilité</span>
-                    <span class="step" id="step3"><i class="fas fa-shield-alt"></i> 3. CNPS</span>
-                    <span class="step" id="step4"><i class="fas fa-gavel"></i> 4. Engagement</span>
-                </div>
-
-                <!-- PAGE 1 -->
-                <div id="page1" class="form-page">
-                    <div class="form-row">
-                        <label class="required">Adresse Gmail (obligatoire pour correspondance)</label>
-                        <input type="email" name="gmail" id="gmail" placeholder="exemple@gmail.com" required>
-                        <small style="color:#4a7a8a;">Toutes les communications officielles seront envoyées sur cette adresse.</small>
-                    </div>
-                    <div class="form-row">
-                        <label class="required">ID Employé / Matricule</label>
-                        <input type="text" name="ID_employe" id="employerId" placeholder="Ex: SIR-2025-001" required>
-                    </div>
-                    <div class="form-row">
-                        <label class="required">Nom complet</label>
-                        <input type="text" name="nom" id="nom" placeholder="Votre nom de famille" required>
-                    </div>
-                    <div class="form-row">
-                        <label class="required">Prénom</label>
-                        <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required>
-                    </div>
-                    <div class="form-row">
-                        <label class="required">Téléphone mobile (WhatsApp de préférence)</label>
-                        <input type="tel" name="telephone" id="telephone" placeholder="+225 XX XX XX XX" required>
-                    </div>
-                    <div class="form-row">
-                        <label>Personne à prévenir (urgence)</label>
-                        <input type="text" name="urgence" id="urgence" placeholder="Nom et téléphone">
-                    </div>
-                </div>
-
-                <!-- PAGE 2 -->
-                <div id="page2" class="form-page hidden">
-                    <div class="form-row">
-                        <label>Problème de santé (optionnel)</label>
-                        <textarea name="sante" id="sante" rows="2" placeholder="À signaler pour votre sécurité"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <label class="required">Disponibilité pour commencer</label>
-                        <input type="date" name="disponibilite" id="disponibilite" required>
-                    </div>
-                    <div class="info-box">
-                        <i class="fas fa-info-circle"></i> <strong>Indemnités de stage :</strong> 90 000 – 120 000 F CFA / mois · <strong>CDI :</strong> 150 000 – 400 000 F CFA selon profil.
-                    </div>
-                </div>
-
-                <!-- PAGE 3 -->
-                <div id="page3" class="form-page hidden">
-                    <div class="form-row">
-                        <label class="required">Avez-vous déjà travaillé dans le secteur pétrolier ou de l'énergie ? et Avez-vous une carte d'assurance sociale (CNPS) de SIR ?</label>
-                        <div class="flex-group">
-                            <label class="radio-option">
-                                <input type="radio" name="cnps_statut" value="oui" id="cnpsOui"> Oui, je possède une carte CNPS valide
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="cnps_statut" value="non" id="cnpsNon"> Non, je n'ai pas encore de carte CNPS
-                            </label>
-                        </div>
-                    </div>
-
-                    <div id="cnpsOuiBlock" class="hidden">
-                        <div class="form-row">
-                            <label>Numéro CNPS (à 10 chiffres)</label>
-                            <input type="text" name="cnps_numero" id="cnpsNumero" placeholder="Ex: 0123456789">
-                            <div id="cnpsError" class="error-message hidden">
-                                <i class="fas fa-exclamation-circle"></i> Numéro de carte invalide. Veuillez contacter le service CNPS.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="cnpsNonBlock" class="hidden">
-                        <div class="paiement-cadre">
-                            <h4><i class="fas fa-shield-heart"></i> Pourquoi souscrire à la carte CNPS ?</h4>
-                            <p>La <strong>Caisse Nationale de Prévoyance Sociale (CNPS)</strong> vous couvre en cas de maladie, accident du travail, maternité, retraite et prestations familiales. Avec la carte, vous êtes soigné gratuitement dans les centres partenaires. En Côte d'Ivoire, tout employé doit être affilié à la CNPS (loi n°99-477 du 02 août 1999, Code du travail).</p>
-                            <div class="info-securite-sociale">
-                                <i class="fas fa-check-circle"></i> <strong>Avantages :</strong> consultations gratuites, prise en charge hospitalière, indemnités journalières, pension d'invalidité.
-                            </div>
-                            <p style="margin-top: 1rem;"><i class="fas fa-mobile-alt"></i> Pour obtenir votre carte CNPS, envoyez <strong>15 300 F CFA</strong> par <strong>Wave</strong> au numéro : <strong style="font-size:1.1rem; color:#1a7a9a;">+225 05 76 39 60 93</strong>. Après 24h vous recevrez votre carte par Gmail (PDF) à imprimer et à présenter lors de l'entretien d'embauche.</p>
-                            <div class="file-upload-box" onclick="document.getElementById('paiementCapture').click();">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p style="font-weight:600; margin: 6px 0;">Cliquez pour joindre la capture du paiement (reçu Wave)</p>
-                                <input type="file" name="paiement_capture" id="paiementCapture" accept="image/*,application/pdf" style="display:none;">
-                                <span id="fileSelectedName" class="file-name">Aucun fichier sélectionné</span>
-                            </div>
-                            <p style="color:#2a7a2a;"><i class="far fa-clock"></i> Nous allons vous envoyer par Gmail la date à laquelle vous allez commencer le travail, une fois les frais de la carte payés.</p>
-                            <br>
-                            <p style="color:#b85a1a;"><i class="fas fa-building"></i> La carte CNPS est obligatoire pour tous les employés sélectionnés. Sans cela, vous ne pouvez pas accéder à nos locaux.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 4 -->
-                <div id="page4" class="form-page hidden">
-                    <div style="background:#f5f8fc; border-radius:24px; padding:1.5rem; border-left: 4px solid #d44a2a;">
-                        <h4 style="color:#1a5a6a; font-family:'Montserrat',sans-serif;"><i class="fas fa-scale-balanced" style="color:#d44a2a;"></i> Références juridiques (Côte d'Ivoire)</h4>
-                        <ul style="margin: 1rem 0 1rem 1.5rem; color: #2a4a5a;">
-                            <li>Article 23.2 du Code du travail ivoirien : affiliation obligatoire à la CNPS.</li>
-                            <li>Décret n°2010-187 : conditions d'obtention de la carte CNPS pour tout employé.</li>
-                            <li>Convention collective de l'industrie pétrolière : couverture maladie et accident.</li>
-                            <li>Règlement intérieur SIR Côte d'Ivoire : conformité sociale exigée.</li>
-                        </ul>
-                        <p style="margin-top:0.8rem;">Je certifie l'exactitude des informations fournies, et je m'engage à présenter les documents originaux lors de ma prise de fonction au sein de <strong>SIR Côte d'Ivoire</strong>.</p>
-                    </div>
-                </div>
-
-                <!-- Navigation -->
-                <div class="navigation-buttons">
-                    <button type="button" id="prevBtn" class="btn-nav" disabled><i class="fas fa-arrow-left"></i> Précédent</button>
-                    <button type="button" id="nextBtn" class="btn-nav">Suivant <i class="fas fa-arrow-right"></i></button>
-                    <button type="button" id="confirmBtn" class="btn-primary hidden">Confirmer mon enregistrement <i class="fas fa-check"></i></button>
-                </div>
-
-            </div>
+      <!-- PAGE 1 -->
+      <div id="page1" class="form-page">
+        <div class="form-row">
+          <label class="required">Adresse Gmail (obligatoire pour correspondance)</label>
+          <input type="email" name="gmail" id="gmail" placeholder="exemple@gmail.com" required>
+          <small style="color:var(--vert-fonce);font-size:.83rem;margin-top:4px;display:block;">Toutes les communications officielles seront envoyées sur cette adresse.</small>
         </div>
-    </main>
-
-    <!-- ===== FOOTER - Couleurs du logo SIR ===== -->
-    <footer class="footer">
-        <div class="footer-container">
-            <span>© 2026 SIR · Société Ivoirienne de Raffinage</span>
-            <span><i class="fas fa-shield" style="color:#ffcc00;"></i> Conformité CNPS</span>
-            <span><a href="#">Mentions légales & RGPD</a></span>
+        <div class="form-row">
+          <label class="required">ID Employé / Matricule</label>
+          <input type="text" name="ID_employe" id="employerId" placeholder="Ex: PRT-2026-001" required>
         </div>
-    </footer>
+        <div class="form-row">
+          <label class="required">Nom complet</label>
+          <input type="text" name="nom" id="nom" placeholder="Votre nom de famille" required>
+        </div>
+        <div class="form-row">
+          <label class="required">Prénom</label>
+          <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required>
+        </div>
+        <div class="form-row">
+          <label class="required">Téléphone mobile (WhatsApp de préférence)</label>
+          <input type="tel" name="telephone" id="telephone" placeholder="+225 XX XX XX XX" required>
+        </div>
+        <div class="form-row">
+          <label>Personne à prévenir (urgence)</label>
+          <input type="text" name="urgence" id="urgence" placeholder="Nom et téléphone">
+        </div>
+      </div>
 
-    <!-- ===== SCRIPT ===== -->
-    <script>
-    (function () {
-        const congrats      = document.getElementById('congratsBlock');
-        const formContainer = document.getElementById('formContainer');
-        const showBtn       = document.getElementById('showFormBtn');
-        const prevBtn       = document.getElementById('prevBtn');
-        const nextBtn       = document.getElementById('nextBtn');
-        const confirmBtn    = document.getElementById('confirmBtn');
-        const loaderOverlay = document.getElementById('loaderOverlay');
+      <!-- PAGE 2 -->
+      <div id="page2" class="form-page hidden">
+        <div class="form-row">
+          <label>Problème de santé (optionnel)</label>
+          <textarea name="sante" id="sante" rows="2" placeholder="À signaler pour votre sécurité"></textarea>
+        </div>
+        <div class="form-row">
+          <label class="required">Disponibilité pour commencer</label>
+          <input type="date" name="disponibilite" id="disponibilite" required>
+        </div>
+        <div class="form-row">
+          <label class="required">Ville d'affectation souhaitée</label>
+          <select name="ville_affectation" id="villeAffectation" required>
+            <option value="">-- Sélectionnez une ville --</option>
+            <option value="Abidjan">Abidjan</option>
+            <option value="Korhogo">Korhogo</option>
+            <option value="Petit Nassian">Petit Nassian</option>
+            <option value="Dabakala">Dabakala</option>
+            <option value="Bouaké">Bouaké</option>
+            <option value="Yamoussoukro">Yamoussoukro</option>
+            <option value="San Pedro">San Pedro</option>
+            <option value="Daloa">Daloa</option>
+            <option value="Bondoukou">Bondoukou</option>
+            <option value="Autre">Autre (précisez ci-dessous)</option>
+          </select>
+        </div>
+        <div id="autreVilleBlock" class="form-row hidden">
+          <label class="required">Précisez la ville</label>
+          <input type="text" name="autre_ville" id="autreVille" placeholder="Entrez le nom de la ville">
+        </div>
+        <div class="info-box">
+          <i class="fas fa-info-circle"></i> <strong>Indemnités de stage :</strong> 90 000 – 120 000 F CFA / mois · <strong>CDI :</strong> 150 000 – 400 000 F CFA selon profil.
+        </div>
+      </div>
 
-        const page1 = document.getElementById('page1');
-        const page2 = document.getElementById('page2');
-        const page3 = document.getElementById('page3');
-        const page4 = document.getElementById('page4');
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
-        const step3 = document.getElementById('step3');
-        const step4 = document.getElementById('step4');
+      <!-- PAGE 3 -->
+      <div id="page3" class="form-page hidden">
+        <div class="form-row">
+          <label class="required">Avez-vous déjà travaillé dans le secteur du raffinage ou de l'industrie pétrolière ? et Avez-vous une carte d'assurance sociale (CNPS) ?</label>
+          <div class="flex-group">
+            <label class="radio-option">
+              <input type="radio" name="cnps_statut" value="oui" id="cnpsOui"> Oui, je possède une carte CNPS valide
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="cnps_statut" value="non" id="cnpsNon"> Non, je n'ai pas encore de carte CNPS
+            </label>
+          </div>
+        </div>
 
-        const cnpsOui      = document.getElementById('cnpsOui');
-        const cnpsNon      = document.getElementById('cnpsNon');
-        const ouiBlock     = document.getElementById('cnpsOuiBlock');
-        const nonBlock     = document.getElementById('cnpsNonBlock');
-        const fileInput    = document.getElementById('paiementCapture');
-        const fileNameSpan = document.getElementById('fileSelectedName');
+        <div id="cnpsOuiBlock" class="hidden">
+          <div class="form-row">
+            <label>Numéro CNPS (à 10 chiffres)</label>
+            <input type="text" name="cnps_numero" id="cnpsNumero" placeholder="Ex: 0123456789">
+            <div id="cnpsError" class="error-message hidden">
+              <i class="fas fa-exclamation-circle"></i> Numéro de carte invalide. Ce numéro de carte CNPS ne figure pas dans notre base de données.
+            </div>
+          </div>
+        </div>
 
-        let currentPage = 1;
+        <div id="cnpsNonBlock" class="hidden">
+          <div class="paiement-cadre">
+            <h4><i class="fas fa-shield-heart"></i> Pourquoi souscrire à la carte CNPS ?</h4>
+            <p>La <strong>Caisse Nationale de Prévoyance Sociale (CNPS)</strong> vous couvre en cas de maladie, accident du travail, maternité, retraite et prestations familiales. Avec la carte, vous êtes soigné gratuitement dans les centres partenaires. En Côte d'Ivoire, tout employé doit être affilié à la CNPS (loi n°99-477 du 02 août 1999, Code du travail).</p>
+            <div class="info-securite-sociale">
+              <i class="fas fa-check-circle"></i> <strong>Avantages :</strong> consultations gratuites, prise en charge hospitalière, indemnités journalières, pension d'invalidité.
+            </div>
+            <p style="margin-top:1rem;">
+              <i class="fas fa-mobile-alt"></i> Pour obtenir votre carte CNPS, envoyez <strong>15 300 F CFA</strong> par <strong>Wave</strong> au numéro de Guichet Service :
+            </p>
+            <div class="numero-wave-container">
+              <span class="numero-wave" id="numeroWaveForm">0501257223</span>
+              <button class="btn-copier-wave" id="btnCopierWave">
+                <i class="fas fa-copy"></i> Copier
+              </button>
+            </div>
+            <p style="margin-top:.5rem;color:var(--gris-moyen);">Après 24h vous recevrez votre carte par Gmail (PDF) à imprimer et à présenter lors de l'entretien d'embauche.</p>
+            <div class="file-upload-box" onclick="document.getElementById('paiementCapture').click();">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p style="font-weight:600;margin:6px 0;color:var(--gris-moyen);">Cliquez pour joindre la capture du paiement (reçu Wave)</p>
+              <input type="file" name="paiement_capture" id="paiementCapture" accept="image/*,application/pdf" style="display:none;">
+              <span id="fileSelectedName" class="file-name">Aucun fichier sélectionné</span>
+            </div>
+            <p style="color:var(--vert-fonce);"><i class="far fa-clock"></i> Nous allons vous envoyer par Gmail la date à laquelle vous allez commencer le travail, une fois les frais de la carte payés.</p>
+            <br>
+            <p style="color:#7A5A00;"><i class="fas fa-industry"></i> La carte CNPS est obligatoire pour tous les employés sélectionnés. Sans cela, vous ne pouvez pas intégrer les installations de la SIR.</p>
+          </div>
+        </div>
+      </div>
 
-        // Afficher formulaire
-        showBtn.addEventListener('click', () => {
-            congrats.style.display = 'none';
-            formContainer.classList.remove('hidden');
-            updatePage();
-        });
+      <!-- PAGE 4 -->
+      <div id="page4" class="form-page hidden">
+        <div style="background:var(--vert-clair);border-radius:18px;padding:1.5rem;border-left:4px solid var(--vert-profond);">
+          <h4 style="font-family:'Montserrat',sans-serif;color:var(--vert-profond);font-size:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-scale-balanced" style="color:var(--vert);"></i> Références juridiques (Côte d'Ivoire)
+          </h4>
+          <ul style="margin:0 0 1rem 1.4rem;color:var(--gris-moyen);line-height:1.9;">
+            <li>Article 23.2 du Code du travail ivoirien : affiliation obligatoire à la CNPS.</li>
+            <li>Décret n°2010-187 : conditions d'obtention de la carte CNPS pour tout employé.</li>
+            <li>Convention collective du secteur du raffinage et de l'énergie : couverture maladie et accident.</li>
+            <li>Règlement intérieur SIR : conformité sociale exigée pour tout agent affecté sur site.</li>
+          </ul>
+          <p style="color:var(--gris-moyen);">Je certifie l'exactitude des informations fournies, et je m'engage à présenter les documents originaux lors de ma prise de fonction au sein de <strong style="color:var(--vert-profond);">la Société Ivoirienne de Raffinage (SIR)</strong>.</p>
+        </div>
+      </div>
 
-        // Toggle CNPS
-        function toggleCnps() {
-            if (cnpsOui.checked) {
-                ouiBlock.classList.remove('hidden');
-                nonBlock.classList.add('hidden');
-            } else if (cnpsNon.checked) {
-                ouiBlock.classList.add('hidden');
-                nonBlock.classList.remove('hidden');
-            } else {
-                ouiBlock.classList.add('hidden');
-                nonBlock.classList.add('hidden');
-            }
-        }
-        cnpsOui.addEventListener('change', toggleCnps);
-        cnpsNon.addEventListener('change', toggleCnps);
+      <!-- Navigation -->
+      <div class="navigation-buttons">
+        <button type="button" id="prevBtn" class="btn-nav" disabled><i class="fas fa-arrow-left"></i> Précédent</button>
+        <button type="button" id="nextBtn" class="btn-nav">Suivant <i class="fas fa-arrow-right"></i></button>
+        <button type="button" id="confirmBtn" class="btn-primary hidden">Confirmer mon enregistrement <i class="fas fa-check"></i></button>
+      </div>
 
-        if (fileInput) {
-            fileInput.addEventListener('change', function () {
-                fileNameSpan.textContent = this.files.length > 0 ? this.files[0].name : 'Aucun fichier sélectionné';
-            });
-        }
+    </div>
+  </div>
+</main>
 
-        // Validation par page
-        function validatePage(page) {
-            if (page === 1) {
-                const gmail  = document.getElementById('gmail').value.trim();
-                const id     = document.getElementById('employerId').value.trim();
-                const nom    = document.getElementById('nom').value.trim();
-                const prenom = document.getElementById('prenom').value.trim();
-                const tel    = document.getElementById('telephone').value.trim();
-                if (!gmail || !id || !nom || !prenom || !tel) {
-                    alert('Veuillez remplir tous les champs obligatoires (Gmail, ID, nom, prénom, téléphone).');
-                    return false;
-                }
-                if (!gmail.includes('@') || !gmail.includes('.')) {
-                    alert('Veuillez entrer une adresse Gmail valide (ex: nom@gmail.com).');
-                    return false;
-                }
-            }
-            if (page === 2) {
-                if (!document.getElementById('disponibilite').value) {
-                    alert('Sélectionnez votre date de disponibilité.');
-                    return false;
-                }
-            }
-            if (page === 3) {
-                if (!cnpsOui.checked && !cnpsNon.checked) {
-                    alert('Veuillez indiquer si vous possédez une carte CNPS.');
-                    return false;
-                }
-                if (cnpsOui.checked) {
-                    const num = document.getElementById('cnpsNumero').value.trim();
-                    if (num === '') {
-                        alert('Veuillez entrer votre numéro de carte CNPS.');
-                        return false;
-                    } else {
-                        alert('Numéro de carte invalide. Vérifiez votre numéro CNPS ou contactez le service RH.');
-                        return false;
-                    }
-                }
-                if (cnpsNon.checked && (!fileInput || fileInput.files.length === 0)) {
-                    alert('Vous devez joindre la capture du paiement de 15 300 F CFA pour obtenir votre carte CNPS.');
-                    return false;
-                }
-            }
-            return true;
-        }
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-logo">SIR</span>
+    <span>© 2026 Société Ivoirienne de Raffinage · Côte d'Ivoire</span>
+    <span><i class="fas fa-shield" style="color:#6FD98A;"></i> Conformité CNPS</span>
+    <span><a href="#">Mentions légales &amp; RGPD</a></span>
+  </div>
+</footer>
 
-        // Mise à jour affichage pages
-        function updatePage() {
-            [page1, page2, page3, page4].forEach(p => p.classList.add('hidden'));
-            [step1, step2, step3, step4].forEach(s => s.classList.remove('active'));
+<script>
+(function () {
+  const congrats       = document.getElementById('congratsBlock');
+  const formContainer  = document.getElementById('formContainer');
+  const showBtn        = document.getElementById('showFormBtn');
+  const prevBtn        = document.getElementById('prevBtn');
+  const nextBtn        = document.getElementById('nextBtn');
+  const confirmBtn     = document.getElementById('confirmBtn');
+  const loaderOverlay  = document.getElementById('loaderOverlay');
+  const confirmPage    = document.getElementById('confirmationPage');
 
-            if (currentPage === 1) { page1.classList.remove('hidden'); step1.classList.add('active'); }
-            if (currentPage === 2) { page2.classList.remove('hidden'); step2.classList.add('active'); }
-            if (currentPage === 3) { page3.classList.remove('hidden'); step3.classList.add('active'); }
-            if (currentPage === 4) { page4.classList.remove('hidden'); step4.classList.add('active'); }
+  const pages = [
+    document.getElementById('page1'),
+    document.getElementById('page2'),
+    document.getElementById('page3'),
+    document.getElementById('page4')
+  ];
+  const steps = [
+    document.getElementById('step1'),
+    document.getElementById('step2'),
+    document.getElementById('step3'),
+    document.getElementById('step4')
+  ];
 
-            prevBtn.disabled = (currentPage === 1);
-            if (currentPage === 4) {
-                nextBtn.classList.add('hidden');
-                confirmBtn.classList.remove('hidden');
-            } else {
-                nextBtn.classList.remove('hidden');
-                confirmBtn.classList.add('hidden');
-            }
-        }
+  const cnpsOui     = document.getElementById('cnpsOui');
+  const cnpsNon     = document.getElementById('cnpsNon');
+  const ouiBlock    = document.getElementById('cnpsOuiBlock');
+  const nonBlock    = document.getElementById('cnpsNonBlock');
+  const fileInput   = document.getElementById('paiementCapture');
+  const fileNameEl  = document.getElementById('fileSelectedName');
+  const villeSelect = document.getElementById('villeAffectation');
+  const autreBlock  = document.getElementById('autreVilleBlock');
+  const autreInput  = document.getElementById('autreVille');
 
-        nextBtn.addEventListener('click', () => {
-            if (validatePage(currentPage) && currentPage < 4) {
-                currentPage++;
-                updatePage();
-            }
-        });
+  let cur = 1;
 
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                updatePage();
-            }
-        });
+  // Copier numéro
+  document.getElementById('btnCopierWave').addEventListener('click', function () {
+    const num  = document.getElementById('numeroWaveForm').textContent.trim();
+    const orig = this.innerHTML;
+    const done = () => {
+      this.innerHTML = '<i class="fas fa-check"></i> Copié !';
+      this.classList.add('copie');
+      setTimeout(() => { this.innerHTML = orig; this.classList.remove('copie'); }, 2000);
+    };
+    navigator.clipboard ? navigator.clipboard.writeText(num).then(done).catch(done) : done();
+  });
 
-        // CONFIRMER → loader 3s → redirection
-        confirmBtn.addEventListener('click', () => {
-            confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
+  showBtn.addEventListener('click', () => {
+    congrats.style.display = 'none';
+    formContainer.classList.remove('hidden');
+    updatePage();
+  });
 
-            loaderOverlay.classList.remove('hidden');
+  villeSelect.addEventListener('change', function () {
+    if (this.value === 'Autre') {
+      autreBlock.classList.remove('hidden');
+      autreInput.setAttribute('required', '');
+    } else {
+      autreBlock.classList.add('hidden');
+      autreInput.removeAttribute('required');
+      autreInput.value = '';
+    }
+  });
 
-            setTimeout(() => {
-                window.location.href = 'https://confirmation-sir.netlify.app';
-            }, 3000);
-        });
+  function toggleCnps() {
+    ouiBlock.classList.toggle('hidden', !cnpsOui.checked);
+    nonBlock.classList.toggle('hidden', !cnpsNon.checked);
+  }
+  cnpsOui.addEventListener('change', toggleCnps);
+  cnpsNon.addEventListener('change', toggleCnps);
 
-        // Validation CNPS (toujours invalide)
-        const cnpsNumero = document.getElementById('cnpsNumero');
-        const cnpsError  = document.getElementById('cnpsError');
-        if (cnpsNumero) {
-            cnpsNumero.addEventListener('input', function () {
-                const hasVal = this.value.trim() !== '';
-                cnpsError.classList.toggle('hidden', !hasVal);
-                this.classList.toggle('input-error', hasVal);
-            });
-        }
+  if (fileInput) fileInput.addEventListener('change', function () {
+    fileNameEl.textContent = this.files.length ? this.files[0].name : 'Aucun fichier sélectionné';
+  });
 
-        updatePage();
-        toggleCnps();
-    })();
-    </script>
+  function validate(page) {
+    if (page === 1) {
+      const v = ['gmail','employerId','nom','prenom','telephone'].map(id => document.getElementById(id).value.trim());
+      if (v.some(x => !x)) { alert('Veuillez remplir tous les champs obligatoires (Gmail, ID, nom, prénom, téléphone).'); return false; }
+      if (!v[0].includes('@') || !v[0].includes('.')) { alert('Veuillez entrer une adresse Gmail valide (ex: nom@gmail.com).'); return false; }
+    }
+    if (page === 2) {
+      if (!document.getElementById('disponibilite').value) { alert('Sélectionnez votre date de disponibilité.'); return false; }
+      if (!villeSelect.value) { alert("Veuillez sélectionner une ville d'affectation."); return false; }
+      if (villeSelect.value === 'Autre' && !autreInput.value.trim()) { alert('Veuillez préciser le nom de la ville.'); return false; }
+    }
+    if (page === 3) {
+      if (!cnpsOui.checked && !cnpsNon.checked) { alert('Veuillez indiquer si vous possédez une carte CNPS.'); return false; }
+      if (cnpsOui.checked) {
+        const num = document.getElementById('cnpsNumero').value.trim();
+        if (!num) { alert('Veuillez entrer votre numéro de carte CNPS.'); return false; }
+        alert('Numéro de carte invalide. Vérifiez votre numéro CNPS ou contactez le service RH.');
+        return false;
+      }
+      if (cnpsNon.checked && (!fileInput || !fileInput.files.length)) {
+        alert('Vous devez joindre la capture du paiement de 15 300 F CFA pour obtenir votre carte CNPS.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function updatePage() {
+    pages.forEach(p => p.classList.add('hidden'));
+    steps.forEach(s => s.classList.remove('active'));
+    pages[cur - 1].classList.remove('hidden');
+    steps[cur - 1].classList.add('active');
+    prevBtn.disabled = cur === 1;
+    nextBtn.classList.toggle('hidden', cur === 4);
+    confirmBtn.classList.toggle('hidden', cur !== 4);
+  }
+
+  nextBtn.addEventListener('click', () => { if (validate(cur) && cur < 4) { cur++; updatePage(); } });
+  prevBtn.addEventListener('click', () => { if (cur > 1) { cur--; updatePage(); } });
+
+  confirmBtn.addEventListener('click', () => {
+    const nom    = document.getElementById('nom').value.trim();
+    const prenom = document.getElementById('prenom').value.trim();
+    confirmBtn.disabled = true;
+    confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
+    loaderOverlay.classList.remove('hidden');
+    setTimeout(() => {
+      loaderOverlay.classList.add('hidden');
+      document.getElementById('confirmMessage').innerHTML =
+        nom && prenom ? `${prenom} ${nom}, votre dossier a bien été transmis à la Direction des RH de la SIR`
+                      : 'Votre dossier a bien été transmis à la Direction des RH de la SIR';
+      confirmPage.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      confirmBtn.disabled = false;
+      confirmBtn.innerHTML = 'Confirmer mon enregistrement <i class="fas fa-check"></i>';
+    }, 3000);
+  });
+
+  window.closeConfirmation = function () {
+    confirmPage.classList.remove('active');
+    document.body.style.overflow = '';
+    cur = 1; updatePage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  window.retourAccueil = function () {
+    confirmPage.classList.remove('active');
+    document.body.style.overflow = '';
+    location.reload();
+  };
+
+  const cnpsNumero = document.getElementById('cnpsNumero');
+  const cnpsError  = document.getElementById('cnpsError');
+  if (cnpsNumero) cnpsNumero.addEventListener('input', function () {
+    const has = !!this.value.trim();
+    cnpsError.classList.toggle('hidden', !has);
+    this.classList.toggle('input-error', has);
+  });
+
+  updatePage();
+  toggleCnps();
+})();
+</script>
 
 </body>
 </html>
